@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Activity 1</title>
+  </head>
+  <body>
+    <h3>Answer me these 3 questions:</h3>
+    <div id="app">
+      <p>1. What is your name?</p>
+      <div>
+        <input type="text" v-model="answers.name">
+      </div>
+      <p>2. What is your quest?</p>
+      <div>
+        <input type="text" v-model="answers.quest">
+      </div>
+      <p v-if="thirdQuestionOption">3. What is your favorite color?</p>
+      <p v-else>3. What is the airspeed velocity of an unladen swallow?</p>
+      <div>
+        <input type="text" v-model="answers.third">
+      </div><br>
+
+      <p v-if="showKnightResponse">Knight: AAAAAAAAHHHHHHHHHHH!!!</p>
+      <p v-else-if="showBridgeKeeperResponse">Bridgekeeper: Alright, off you go then</p>
+      <br>
+
+      <button @click="resetForm">Go again</button>
+    </div>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+      let app = Vue.createApp({
+        data() {
+          return {
+            thirdQuestionOption: false,
+            names: ["Joe", "Sue", "Carol", "Kevin", "Bob"],
+            answers: { name: '', quest: '', third: '' },
+            
+          }
+        },
+        computed: {
+          showKnightResponse() {
+            return (this.answers.name.trim().toLowerCase() === 'idk' ||
+                    this.answers.quest.trim().toLowerCase() === 'idk' ||
+                    this.answers.third.trim().toLowerCase() === 'idk'
+            );
+          },
+          showBridgeKeeperResponse() {
+            return ((this.answers.name.trim().length > 0 && this.answers.name.trim().toLowerCase() !== 'idk') &&
+                    (this.answers.quest.trim().length > 0 && this.answers.quest.trim().toLowerCase() !== 'idk') &&
+                    (this.answers.third.trim().length > 0 && this.answers.third.trim().toLowerCase() !== 'idk')
+            );
+
+          }
+        },
+        methods: {
+          resetForm() {
+            this.answers = { name: '', quest: '', third: ''};
+            this.thirdQuestionOption = !this.thirdQuestionOption;
+          }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>
