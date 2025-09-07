@@ -2,8 +2,14 @@
 export default {
     name: 'Balance',
     props: {
-      balance: Number,
-      required: true
+      balance: {
+        type: Number,
+        required: true
+      },
+      currency: {
+        type: String,
+        required: true
+      }
     },
     data() {
         return {
@@ -40,10 +46,7 @@ export default {
 
 <template>
     <div class="greetings">
-      <h3>{{balanceString}}</h3>
-      <h3 for="amount">Amount: {{ amount }}</h3>
-      </br>
-      </br>
+      <h3>{{balanceString}} {{currency}}, Amount: {{amount}} {{currency}}</h3><br>
       <input id="amount" type="range" v-model.number="amount" min="5" max="100" step="5"/>
       <button @click="addBalance">Add</button><button @click="subtractBalance" :disabled= "!canSubtract" >Subtract</button>
     </div>
